@@ -30,8 +30,8 @@ import com.saurabharora.customtabs.internal.ServiceConnectionCallback
  * This is a helper class to manage the connection to the Custom Tabs Service.
  */
 class CustomTabActivityHelper(private val context : Context,
-                              private val callback : CustomTabsCallback? = null,
-                              lifecycle : Lifecycle) : ServiceConnectionCallback, LifecycleObserver {
+                              lifecycle : Lifecycle,
+                              private val callback : CustomTabsCallback? = null) : ServiceConnectionCallback, LifecycleObserver {
 
     private var customTabsSession: CustomTabsSession? = null
     private var client: CustomTabsClient? = null
@@ -101,7 +101,7 @@ class CustomTabActivityHelper(private val context : Context,
 
     override fun onServiceConnected(client: CustomTabsClient) {
         this.client = client
-        this.client!!.warmup(0L)
+        this.client?.warmup(0L)
 
         connectionCallback?.onCustomTabsConnected()
     }
@@ -110,34 +110,6 @@ class CustomTabActivityHelper(private val context : Context,
         client = null
         customTabsSession = null
         connectionCallback?.onCustomTabsDisconnected()
-    }
-
-    /**
-     * A Callback for when the service is connected or disconnected. Use those callbacks to
-     * handle UI changes when the service is connected or disconnected.
-     */
-    interface ConnectionCallback {
-        /**
-         * Called when the service is connected.
-         */
-        fun onCustomTabsConnected()
-
-        /**
-         * Called when the service is disconnected.
-         */
-        fun onCustomTabsDisconnected()
-    }
-
-    /**
-     * To be used as a fallback to open the Uri when Custom Tabs is not available.
-     */
-    interface CustomTabFallback {
-        /**
-         *
-         * @param activity The Activity that wants to open the Uri.
-         * @param uri The uri to be opened by the fallback.
-         */
-        fun openUri(activity: Activity, uri: Uri)
     }
 
     companion object {
