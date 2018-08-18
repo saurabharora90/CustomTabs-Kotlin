@@ -1,6 +1,19 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
 android {
     compileSdkVersion 28
 
@@ -31,6 +44,38 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common:2.0.0-rc01'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
 repositories {
     mavenCentral()
 }
+
+tasks.withType(Javadoc) {
+        enabled = false
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'CustomTabs-Kotlin'
+
+    publishedGroupId = 'com.saurabharora.customtabs'
+    libraryName = 'CustomTabs-Kotlin'
+    artifact = 'customtabs'
+
+    libraryDescription = 'Helpers of the Chrome Custom tabs re-written in Kotlin and with Architecture Components to offer a simpler API'
+
+    siteUrl = 'https://github.com/saurabharora90/CustomTabs-Kotlin'
+    gitUrl = 'https://github.com/saurabharora90/CustomTabs-Kotlin.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'saurabharora90'
+    developerName = 'Saurabh Arora'
+    developerEmail = 'saurabharora90@gmail.com'
+
+    licenseName = 'MIT'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+
+apply from: 'https://raw.githubusercontent.com/LissF/JCenter/master/script.gradle'
