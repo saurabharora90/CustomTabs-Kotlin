@@ -1,7 +1,8 @@
-package com.saurabharora.customtabs
+package com.saurabharora.customtabs.sample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.saurabharora.customtabs.R
 
 class MainActivity : AppCompatActivity() {
 
