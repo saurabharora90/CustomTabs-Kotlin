@@ -28,6 +28,6 @@ Now in your Activity/Fragment from where you want to launch the Chrome Custom Ta
     val customTabsIntent = CustomTabsIntent.Builder(customTabActivityHelper.session)
                            .build()
                            
-    CustomTabActivityHelper.openCustomTab(activity = this, customTabsIntent = customTabsIntent, uri = uri)
+    customTabsIntent.launchWithFallback(activity = this, uri = uri)
             
 See the demo app for more details.
