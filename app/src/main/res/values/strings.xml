@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CustomTabs - Sample</string>
+
+    <string name="default_test_url">https://github.com/saurabharora90/CustomTabs-Kotlin</string>
+    <string name="label_url">URL:</string>
+    <string name="label_may_launch_url">May Launch URL</string>
+    <string name="label_start_custom_tab">Open Custom Tab</string>
 </resources>

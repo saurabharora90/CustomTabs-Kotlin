@@ -15,14 +15,15 @@ import com.saurabharora.customtabs.internal.ServiceConnectionCallback
 /**
  * This is a helper class to manage the connection to the Custom Tabs Service.
  */
-class CustomTabConnectionHelper(private val context : Context,
-                                lifecycle : Lifecycle,
-                                private val connectionCallback: ConnectionCallback? = null,
-                                private val callback : CustomTabsCallback? = null) : ServiceConnectionCallback, LifecycleObserver {
+class CustomTabActivityHelper(private val context : Context,
+                              lifecycle : Lifecycle,
+                              connectionCallback: ConnectionCallback? = null,
+                              private val callback : CustomTabsCallback? = null) : ServiceConnectionCallback, LifecycleObserver {
 
     private var customTabsSession: CustomTabsSession? = null
     private var client: CustomTabsClient? = null
     private var connection: CustomTabsServiceConnection? = null
+    private var connectionCallback: ConnectionCallback? = null
 
     /**
      * Creates or retrieves an exiting CustomTabsSession.
@@ -40,6 +41,7 @@ class CustomTabConnectionHelper(private val context : Context,
         }
 
     init {
+        this.connectionCallback = connectionCallback
         lifecycle.addObserver(this)
     }
 
@@ -69,6 +71,11 @@ class CustomTabConnectionHelper(private val context : Context,
         CustomTabsClient.bindCustomTabsService(context, packageName, connection)
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    private fun removeReferencs() {
+        connectionCallback = null
+    }
+
     override fun onServiceConnected(client: CustomTabsClient) {
         this.client = client
         this.client?.warmup(0L)
@@ -94,27 +101,30 @@ class CustomTabConnectionHelper(private val context : Context,
         return session.mayLaunchUrl(uri, extras, otherLikelyBundles)
     }
 
-    /**
-     * Opens the URL on a Custom Tab if possible. Otherwise fallback
-     *
-     * @param activity The host activity.
-     * @param customTabsIntent a CustomTabsIntent to be used if Custom Tabs is available.
-     * @param uri the Uri to be opened.
-     * @param fallback a CustomTabFallback to be used if Custom Tabs is not available.
-     */
-    fun openCustomTab(activity: Activity,
-                      customTabsIntent: CustomTabsIntent,
-                      uri: Uri,
-                      fallback: CustomTabFallback? = null) {
-        val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+    companion object {
 
-        //If we cant find a package name, it means there is no browser that supports
-        //Chrome Custom Tabs installed. So, we do the fallback
-        if (packageName == null) {
-            fallback?.openUri(activity, uri)
-        } else {
-            customTabsIntent.intent.setPackage(packageName)
-            customTabsIntent.launchUrl(activity, uri)
+        /**
+         * Opens the URL on a Custom Tab if possible. Otherwise fallback
+         *
+         * @param activity The host activity.
+         * @param customTabsIntent a CustomTabsIntent to be used if Custom Tabs is available.
+         * @param uri the Uri to be opened.
+         * @param fallback a CustomTabFallback to be used if Custom Tabs is not available.
+         */
+        fun openCustomTab(activity: Activity,
+                          customTabsIntent: CustomTabsIntent,
+                          uri: Uri,
+                          fallback: CustomTabFallback? = null) {
+            val packageName = CustomTabsHelper.getPackageNameToUse(activity)
+
+            //If we cant find a package name, it means there is no browser that supports
+            //Chrome Custom Tabs installed. So, we do the fallback
+            if (packageName == null) {
+                fallback?.openUri(activity, uri)
+            } else {
+                customTabsIntent.intent.setPackage(packageName)
+                customTabsIntent.launchUrl(activity, uri)
+            }
         }
     }
 }
