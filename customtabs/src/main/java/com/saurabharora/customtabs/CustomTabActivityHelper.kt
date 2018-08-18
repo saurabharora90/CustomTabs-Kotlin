@@ -44,7 +44,7 @@ class CustomTabActivityHelper(private val context : Context,
      *
      * @return a CustomTabsSession.
      */
-    private val session: CustomTabsSession?
+    val session: CustomTabsSession?
         get() {
             if (client == null) {
                 customTabsSession = null
@@ -150,7 +150,7 @@ class CustomTabActivityHelper(private val context : Context,
         fun openCustomTab(activity: Activity,
                           customTabsIntent: CustomTabsIntent,
                           uri: Uri,
-                          fallback: CustomTabFallback?) {
+                          fallback: CustomTabFallback? = null) {
             val packageName = CustomTabsHelper.getPackageNameToUse(activity)
 
             //If we cant find a package name, it means theres no browser that supports
