@@ -1,6 +1,5 @@
 package com.saurabharora.customtabs
 
-import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -72,7 +71,7 @@ class CustomTabActivityHelper(private val context : Context,
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun removeReferencs() {
+    private fun removeReferences() {
         connectionCallback = null
     }
 
@@ -99,32 +98,5 @@ class CustomTabActivityHelper(private val context : Context,
         val session = session ?: return false
 
         return session.mayLaunchUrl(uri, extras, otherLikelyBundles)
-    }
-
-    companion object {
-
-        /**
-         * Opens the URL on a Custom Tab if possible. Otherwise fallback
-         *
-         * @param activity The host activity.
-         * @param customTabsIntent a CustomTabsIntent to be used if Custom Tabs is available.
-         * @param uri the Uri to be opened.
-         * @param fallback a CustomTabFallback to be used if Custom Tabs is not available.
-         */
-        fun openCustomTab(activity: Activity,
-                          customTabsIntent: CustomTabsIntent,
-                          uri: Uri,
-                          fallback: CustomTabFallback? = null) {
-            val packageName = CustomTabsHelper.getPackageNameToUse(activity)
-
-            //If we cant find a package name, it means there is no browser that supports
-            //Chrome Custom Tabs installed. So, we do the fallback
-            if (packageName == null) {
-                fallback?.openUri(activity, uri)
-            } else {
-                customTabsIntent.intent.setPackage(packageName)
-                customTabsIntent.launchUrl(activity, uri)
-            }
-        }
     }
 }

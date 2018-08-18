@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.saurabharora.customtabs.ConnectionCallback
+import com.saurabharora.customtabs.extensions.launchWithFallback
 
 
 /**
@@ -51,8 +52,8 @@ class ServiceConnectionActivity : AppCompatActivity(), View.OnClickListener, Con
             R.id.start_custom_tab -> {
                 val customTabsIntent = CustomTabsIntent.Builder(customTabActivityHelper.session)
                         .build()
-                CustomTabActivityHelper.openCustomTab(
-                        this, customTabsIntent, uri)
+                customTabsIntent.launchWithFallback(
+                        this, uri)
             }
         }//Unkown View Clicked
     }

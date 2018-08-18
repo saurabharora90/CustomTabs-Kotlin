@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
-import com.saurabharora.customtabs.CustomTabActivityHelper
+import com.saurabharora.customtabs.extensions.launchWithFallback
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         tvNormal.setOnClickListener {
             val customTabsIntent = CustomTabsIntent.Builder().build()
-            CustomTabActivityHelper.openCustomTab(
-                    this, customTabsIntent, Uri.parse(getString(R.string.default_test_url)))
+            customTabsIntent.launchWithFallback(this, Uri.parse(getString(R.string.default_test_url)))
         }
 
         tvServiceConnection.setOnClickListener {
