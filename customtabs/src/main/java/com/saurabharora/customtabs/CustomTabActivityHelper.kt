@@ -22,6 +22,9 @@ import androidx.browser.customtabs.*
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.saurabharora.customtabs.internal.CustomTabsHelper
+import com.saurabharora.customtabs.internal.ServiceConnection
+import com.saurabharora.customtabs.internal.ServiceConnectionCallback
 
 /**
  * This is a helper class to manage the connection to the Custom Tabs Service.
@@ -140,7 +143,7 @@ class CustomTabActivityHelper(private val context : Context,
     companion object {
 
         /**
-         * Opens the URL on a Custom Tab if possible. Otherwise fallsback to opening it on a WebView.
+         * Opens the URL on a Custom Tab if possible. Otherwise fallback
          *
          * @param activity The host activity.
          * @param customTabsIntent a CustomTabsIntent to be used if Custom Tabs is available.
@@ -153,8 +156,8 @@ class CustomTabActivityHelper(private val context : Context,
                           fallback: CustomTabFallback? = null) {
             val packageName = CustomTabsHelper.getPackageNameToUse(activity)
 
-            //If we cant find a package name, it means theres no browser that supports
-            //Chrome Custom Tabs installed. So, we fallback to the webview
+            //If we cant find a package name, it means there is no browser that supports
+            //Chrome Custom Tabs installed. So, we do the fallback
             if (packageName == null) {
                 fallback?.openUri(activity, uri)
             } else {

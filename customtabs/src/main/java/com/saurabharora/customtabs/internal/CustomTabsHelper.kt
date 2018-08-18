@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.saurabharora.customtabs
+package com.saurabharora.customtabs.internal
 
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.text.TextUtils
 import android.util.Log
@@ -28,7 +26,7 @@ import java.util.ArrayList
 /**
  * Helper class for Custom Tabs.
  */
-object CustomTabsHelper {
+internal object CustomTabsHelper {
 
     private const val TAG = "CustomTabsHelper"
     private const val STABLE_PACKAGE = "com.android.chrome"

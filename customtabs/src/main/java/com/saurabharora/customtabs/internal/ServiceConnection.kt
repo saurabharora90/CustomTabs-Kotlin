@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.saurabharora.customtabs
+package com.saurabharora.customtabs.internal
 
 import android.content.ComponentName
 
@@ -25,7 +25,7 @@ import androidx.browser.customtabs.CustomTabsServiceConnection
  * Implementation for the CustomTabsServiceConnection that avoids leaking the
  * ServiceConnectionCallback
  */
-class ServiceConnection(connectionCallback: ServiceConnectionCallback) : CustomTabsServiceConnection() {
+internal class ServiceConnection(connectionCallback: ServiceConnectionCallback) : CustomTabsServiceConnection() {
     // A weak reference to the ServiceConnectionCallback to avoid leaking it.
     private val connectionCallback: WeakReference<ServiceConnectionCallback> = WeakReference(connectionCallback)
 
