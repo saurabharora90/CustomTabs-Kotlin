@@ -2,6 +2,9 @@
 *.apk
 *.ap_
 
+## OSX ignores
+.DS_Store
+
 # Files for the ART/Dalvik VM
 *.dex
 
@@ -32,15 +35,9 @@ proguard/
 # Android Studio captures folder
 captures/
 
-# IntelliJ
+## IntelliJ ignores
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
+.idea/*
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
