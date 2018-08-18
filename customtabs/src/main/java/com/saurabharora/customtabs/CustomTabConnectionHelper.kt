@@ -15,10 +15,10 @@ import com.saurabharora.customtabs.internal.ServiceConnectionCallback
 /**
  * This is a helper class to manage the connection to the Custom Tabs Service.
  */
-class CustomTabActivityHelper(private val context : Context,
-                              lifecycle : Lifecycle,
-                              private val connectionCallback: ConnectionCallback? = null,
-                              private val callback : CustomTabsCallback? = null) : ServiceConnectionCallback, LifecycleObserver {
+class CustomTabConnectionHelper(private val context : Context,
+                                lifecycle : Lifecycle,
+                                private val connectionCallback: ConnectionCallback? = null,
+                                private val callback : CustomTabsCallback? = null) : ServiceConnectionCallback, LifecycleObserver {
 
     private var customTabsSession: CustomTabsSession? = null
     private var client: CustomTabsClient? = null
