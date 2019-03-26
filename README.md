@@ -14,7 +14,7 @@ Usage
 Add a dependency to your `build.gradle`:
 
     dependencies {
-        implementation 'com.saurabharora.customtabs:customtabs:1.0.0'
+        implementation 'com.saurabharora.customtabs:customtabs:1.1'
     }
 
 Now in your Activity/Fragment from where you want to launch the Chrome Custom Tabs:
